@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:ut4_act_1"
     mc:Ignorable="d"
     Title="Meme"
-    Height="450"
+    Height="760"
     Width="800">
     <Window.Resources>
         <Style
@@ -56,7 +56,17 @@
             <Setter
                 Property="FontFamily"
                 Value="Impact" />
+            <Setter
+                Property="BitmapEffect">
+                <Setter.Value>
+                    <DropShadowBitmapEffect />
+                </Setter.Value>
+            </Setter>
         </Style>
+        
+        <local:BorderConverter
+            x:Key="conversor" />
+    
     </Window.Resources>
     <ScrollViewer
         VerticalScrollBarVisibility="Auto"
@@ -132,31 +142,35 @@
                     VerticalAlignment="Center"
                     Margin="8" />
             </Grid>
-            <Grid
-                Margin="8"
+            <Border
+                x:Name="borderImage"
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Center"
-                Background="Green">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Image
-                    Grid.Row="0"
-                    Stretch="Fill"
+                BorderThickness="{Binding ElementName=bordeCheckBox, Path=IsChecked, Converter={StaticResource conversor}}"
+                BorderBrush="Black">
+                <Grid
+                    Background="LightCoral"
                     Height="{Binding ElementName=altoSlider, Path=Value}"
-                    Width="{Binding ElementName=anchoSlider, Path=Value}"
-                    Source="{Binding ElementName=urlImagenTextBox, Path=Text}" />
-                <TextBlock
-                    Style="{StaticResource textoMeme}"
-                    VerticalAlignment="Top"
-                    Grid.Row="0"
-                    Text="{Binding ElementName=textoSuperiorTextBox, Path=Text}" />
-                <TextBlock
-                    Style="{StaticResource textoMeme}"
-                    VerticalAlignment="Bottom"
-                    Grid.Row="0"
-                    Text="{Binding ElementName=textoInferiorTextBox, Path=Text}" />
-            </Grid>
+                    Width="{Binding ElementName=anchoSlider, Path=Value}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Stretch="Fill"
+                        Source="{Binding ElementName=urlImagenTextBox, Path=Text}" />
+                    <TextBlock
+                        Style="{StaticResource textoMeme}"
+                        VerticalAlignment="Top"
+                        Grid.Row="0"
+                        Text="{Binding ElementName=textoSuperiorTextBox, Path=Text}" />
+                    <TextBlock
+                        Style="{StaticResource textoMeme}"
+                        VerticalAlignment="Bottom"
+                        Grid.Row="0"
+                        Text="{Binding ElementName=textoInferiorTextBox, Path=Text}" />
+                </Grid>
+            </Border>
 
         </DockPanel>
     </ScrollViewer>
